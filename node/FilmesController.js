@@ -1,4 +1,4 @@
-const Filme = require("./db");
+const Filme = require("./filmes");
 
 exports.create = (req,res) => {
     const newMovie = new Filme(req.body);

@@ -1,25 +1,54 @@
-//require
+let listaFilmes = require("./filmes");
+const db = require('./db');
+const controller = require("./FilmesController");
 
-const filmes = require('./filmes');
+const express = require("express");
+const bodyParser = require("body-parser");
 
-console.log(filmes);
+const server = express();
 
-const filmes2 = require('../listas');
+server.use(bodyParser.json());
 
-console.log(filmes2);
+const port = 8080;
 
-
-const http = require('http');
-
-const host = '127.0.0.1';
-const porta = '8080';
-
-const server = http.createServer((req, res) => {
-    res.statusCode = 200; // OK
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(filmes));
+server.listen(port, () => {
+   console.log("Servidor rodando na porta " + port);
 });
 
-server.listen(porta, host, () => {
-    console.log("Servidor ouvindo na porta " + porta);
+server.get('/ping', (req, res) => {
+    res.status(200).send({
+        pong: "true"
+    })
 })
+
+server.get('/filmes', (req, res) => {
+   const lista = controller.list(req,res);
+   res.status(200).send({
+       filmes:lista
+   });
+});
+
+
+
+server.post('/filmes', (req,res) => {
+    if(!req.body.nome){
+        res.status(400).send("O filme precisa de um nome");
+    } else {
+        const filme = {
+            "id": listaFilmes.length + 1,
+            "nome": req.body.nome 
+        }
+        const constResponse = controller.create(req,res);
+        res.status(200).send(constResponse);
+    }
+});
+// 1 parametro -> rota
+// 2 parametro -> instrucoes com req e res
+server.delete('/filmes', (req, res) => {
+    const id = req.body.id - 1;
+    listaFilmes.splice(id,1);
+    res.status(200).send("Filme removido");
+})
+
+
+

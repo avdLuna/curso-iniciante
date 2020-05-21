@@ -1,18 +1,7 @@
-const listaFilmes = [
-    {
-        "id":  1,
-        "nome": "parasita" 
-    },
-    {
-        "id":  2,
-        "nome": "carros" 
-    },
-    {
-        "id": 3,
-        "nome": "cinderela"
-    }
-]
+const schema = mongoose.schema;
 
-//console.log(listaFilmes);
+const Filme = new schema({
+    name: { type: String}
+});
 
-module.exports = listaFilmes;
+module.exports = mongoose.model("Filme", Filme)
