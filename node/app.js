@@ -3,8 +3,16 @@ const controller = require("./filmesController");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
 const server = express();
+
+server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    server.use(cors());
+    next();
+});
 
 server.use(bodyParser.json());
 

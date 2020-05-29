@@ -4,22 +4,21 @@ const filmes = require('./filmes');
 
 console.log(filmes);
 
-const filmes2 = require('../listas');
-
-console.log(filmes2);
-
-
 const http = require('http');
 
 const host = '127.0.0.1';
-const porta = '8080';
+const port = 8080;
 
 const server = http.createServer((req, res) => {
-    res.statusCode = 200; // OK
+    // status
+    res.statusCode = 200;
+    // header
     res.setHeader('Content-Type', 'application/json');
+    // conteúdo
     res.end(JSON.stringify(filmes));
 });
 
-server.listen(porta, host, () => {
-    console.log("Servidor ouvindo na porta " + porta);
-})
+server.listen(port, host, () => {
+  console.log("Servidor rodando na porta " + port);
+});
+

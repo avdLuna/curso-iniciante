@@ -14,6 +14,7 @@ console.log(filmes);
 
 //console.log(filmes);
 
+module.exports = filmes;
 
 
 
