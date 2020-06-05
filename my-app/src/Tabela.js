@@ -4,9 +4,7 @@ const THead = () => {
     return (
         <thead>
             <tr>
-                <td>Autor</td>
-                <td>Livro</td>
-                <td>Preco</td>
+                <td>Nome</td>
 
             </tr>
         </thead>
@@ -15,13 +13,11 @@ const THead = () => {
 
 const TBody = props => {
     // map, filter, reduce
-    const novaLinha = props.autores.map((autor, index) => {
+    const novaLinha = props.filmes.map((filmes, index) => {
         return (
-            <tr>
-                <td>{autor.autor}</td>
-                <td>{autor.livro}</td>
-                <td>{autor.preco}</td>
-                <td> <button>Remover</button> </td>
+            <tr key={index}>
+                <td>{filmes.nome}</td>
+                <td> <button onClick = {(index) => {props.removeAutor()}}>Remover</button> </td>
             </tr>
         );
     });
@@ -37,12 +33,12 @@ const TBody = props => {
 class Tabela extends Component {
 
     render() {
-        const { autores } = this.props;
-        console.log(autores);
+        const { filmes, removeAutor } = this.props;
+        console.log(filmes);
         return (
             <table>
                 <THead />
-                <TBody autores={autores} />
+                <TBody filmes={filmes} removeAutor = {removeAutor} />
             </table>
         );
     }
